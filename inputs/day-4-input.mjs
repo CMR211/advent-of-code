@@ -1,4 +1,4 @@
-const draws = [
+export const draws = [
     84, 28, 29, 75, 58, 71, 26, 6, 73, 74, 41, 39, 87, 37, 16, 79, 55, 60, 62,
     80, 64, 95, 46, 15, 5, 47, 2, 35, 32, 78, 89, 90, 96, 33, 4, 69, 42, 30, 54,
     85, 65, 83, 44, 63, 20, 17, 66, 81, 67, 77, 36, 68, 82, 93, 10, 25, 9, 34,
@@ -7,7 +7,7 @@ const draws = [
     94, 53, 59,
 ];
 
-const boards = [
+export const boards = [
     [
         31, 93, 46, 11, 30, 2, 45, 40, 69, 33, 82, 21, 37, 99, 86, 57, 16, 34,
         94, 85, 60, 49, 28, 14, 65,
@@ -409,56 +409,3 @@ const boards = [
         96, 20, 87, 57, 33, 37, 49,
     ],
 ];
-
-const [winningBoard, winningMove] = updateAllBoards();
-const winningScore = sumOfUnmarkedTiles(winningBoard) * winningMove;
-console.log("Winning board's score: ", winningScore);
-
-function sumOfUnmarkedTiles(board) {
-    return sumArr(board.filter(tile => tile !== -1));
-}
-
-function updateAllBoards(draw = 0) {
-    boards.forEach(board => updateSingleBoard(draws[draw], board));
-    if (boards.some(board => isWinner(board))) {
-        return [boards.find(board => isWinner(board)), draws[draw]];
-    }
-    return updateAllBoards(draw + 1);
-}
-
-function updateSingleBoard(draw, board) {
-    board.forEach((tile, index) => {
-        if (tile === draw) board[index] = -1;
-    });
-}
-
-function isWinner(board) {
-    let win = false;
-    for (let i = 1; i < 6; i++) {
-        if (rowSum(board, i) === -5 || colSum(board, i) === -5) win = true;
-    }
-    return win;
-}
-
-function rowSum(board, row) {
-    return sumArr(
-        board.filter((item, index) => index >= row * 4 && index < row * 5)
-    );
-}
-
-function colSum(board, col) {
-    const indexes = [col - 1, col + 4, col + 9, col + 14, col + 19];
-    return sumArr(board.filter((item, index) => indexes.includes(index)));
-}
-
-function sumArr(arr) {
-    return arr.reduce((tot, cur) => {
-        return tot + cur;
-    });
-}
-
-// 31, -1, 46, 11, 30,
-// 2, -1, 40, 69, 33,
-// 82, -1, 37, 99, 86,
-// 57, -1, 34, 94, 85,
-// 60, -1, 28, 14, 65,
