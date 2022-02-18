@@ -1,16 +1,16 @@
-import { input } from "./inputs/day-7-input.mjs"
+import { data } from "./inputs/day-7-input.mjs"
 
-// solve7b(input)
+// solve7b(data)
 // -> Optimal Position: 497 | Fuel Consumption: 100727924
 
-// solve7a(input)
+// solve7a(data)
 // -> Optimal Position: 346 | Fuel Consumption: 359648
 
-function solve7b(data) {
-    const max = Math.max(...data)
+function solve7b(input) {
+    const max = Math.max(...input)
     const consumptions = []
     for (let target = 0; target <= max; target++) {
-        const fuel = data
+        const fuel = input
             .map(n => specialFuelConsumption(n, target))
             .reduce((a, b) => a + b)
         consumptions.push(fuel)
@@ -42,9 +42,9 @@ function solve7a(input) {
     return fuelConsumption
 }
 
-function flatFuelConsumption(array, target) {
-    const a = [...array]
-    return a.map(i => Math.abs(i - target)).reduce((a, b) => a + b)
+function flatFuelConsumption(input, target) {
+    const array = [...input]
+    return array.map(i => Math.abs(i - target)).reduce((a, b) => a + b)
 }
 
 function customMedian(input) {
