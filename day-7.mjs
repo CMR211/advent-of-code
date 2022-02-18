@@ -1,7 +1,7 @@
 import { input } from "./inputs/day-7-input.mjs"
 
 // solve7b(input)
-// Optimal Position: 497 | Fuel Consumption: 100727924
+// -> Optimal Position: 497 | Fuel Consumption: 100727924
 
 // solve7a(input)
 // -> Optimal Position: 346 | Fuel Consumption: 359648
