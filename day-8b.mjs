@@ -72,3 +72,4 @@ function solve8b() {
 }
 
 solve8b()
+// -> Sum of output: 1091165

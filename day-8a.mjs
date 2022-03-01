@@ -1,7 +1,7 @@
 import { input as data } from "./inputs/day-8-input.mjs"
 const parsedData = parseInput(data)
 
-// solve8a(parsedData)
+solve8a(parsedData)
 // -> Numbers 1, 4, 7, 8 appear this many times: 512
 
 function solve8a(input) {
