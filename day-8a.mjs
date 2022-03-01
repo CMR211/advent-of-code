@@ -41,5 +41,3 @@ function parseInput(input) {
             "]"
     )
 }
-
-console.log(parseInput(data))
