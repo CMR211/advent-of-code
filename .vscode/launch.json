@@ -16,7 +16,7 @@
         },
         {
             "name": "Launch Program",
-            "program": "${workspaceFolder}/day-9.mjs",
+            "program": "${workspaceFolder}/day-10.mjs",
             "request": "launch",
             "skipFiles": ["<node_internals>/**"],
             "type": "pwa-node",
