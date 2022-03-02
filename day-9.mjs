@@ -40,7 +40,7 @@ function solve9a() {
     console.log("Sum of lowest points risk is equal to:", sum)
 }
 
-// solve9a()
+solve9a()
 // -> Sum of lowest points risk is equal to: 600
 
 function findBasin(x, y) {
@@ -55,18 +55,26 @@ function findBasin(x, y) {
         if (y !== 99) basin(x, y + 1)
     }
     basin(x, y)
-    return points.length
+    return [points, points.length]
 }
 
 function solve9b() {
     const lens = []
+    let points = []
     data.forEach((item, index) => {
+        if (points.includes(index)) return
         const [x, y] = setCoordinates(index)
-        lens.push(findBasin(x, y))
-        console.log("progress:", index / 100, "%")
+        const [fna, fnl] = findBasin(x, y)
+        points = [...points, ...fna]
+        lens.push(fnl)
+        console.log("Progress:", index / 100, "%")
     })
-    lens.sort()
-    console.log(lens)
-    console.log("Sum of 3 biggest basins:", lens[-1] + lens[-2] + lens[-3])
+    const product = lens
+        .sort((a, b) => b - a)
+        .slice(0, 3)
+        .reduce((a, b) => a * b)
+    console.log("Product of 3 biggest basins:", product)
 }
+
 solve9b()
+// -> Product of 3 biggest basins: 987840
