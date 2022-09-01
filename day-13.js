@@ -1,15 +1,74 @@
 // @ts-check
 const { data11, data12, data21, data22 } = require("./inputs/day-13-input.js")
 
+// const data11 = `6,10
+// 0,14
+// 9,10
+// 0,3
+// 10,4
+// 4,11
+// 6,0
+// 6,12
+// 4,1
+// 0,13
+// 10,12
+// 3,4
+// 3,0
+// 8,4
+// 1,10
+// 2,14
+// 8,10
+// 9,0`
+
+// const data12 = `fold along y=7
+// fold along x=5`
+
 const sample = {
     coordinates: parseFirstPart(data11),
     folds: parseSecondPart(data12),
     table: createTable(parseFirstPart(data11)),
 }
+const task = {
+    coordinates: parseFirstPart(data21),
+    folds: parseSecondPart(data22),
+    table: createTable(parseFirstPart(data21)),
+}
 
 // ----------
 
-console.table(foldTable(sample.table, sample.coordinates, sample.folds[0]).table)
+// Part 1 solution -> 745
+// console.log(countDots(foldTable(task.table,task.coordinates,task.folds[0]).table))
+
+// Part 2 solution -> ABKJFBGC
+// .##..###..#..#...##.####.###...##...##.
+// #..#.#..#.#.#.....#.#....#..#.#..#.#..#
+// #..#.###..##......#.###..###..#....#...
+// ####.#..#.#.#.....#.#....#..#.#.##.#...
+// #..#.#..#.#.#..#..#.#....#..#.#..#.#..#
+// #..#.###..#..#..##..#....###...###..##.
+// console.table(multipleFolds(task))
+
+/**
+ * 
+ * @param {string[]} table 
+ */
+function countDots(table) {
+    // @ts-ignore
+    return table.join("").replaceAll(".","").length
+}
+
+/**
+ * @param {{table: string[], coordinates: [number,number][], folds: string[]} } param0
+ */
+function multipleFolds({ table, coordinates, folds }) {
+    while (folds.length > 0) {
+        const result = foldTable(table, coordinates, folds[0])
+        table = result.table
+        coordinates = result.coordinates
+        folds = folds.slice(1)
+    }
+    return table
+}
 
 /**
  * @param {string[]} table
@@ -33,19 +92,20 @@ function foldTable(table, coordinates, fold) {
  */
 function invertPos(tab, initialPosition, foldInstruction) {
     let newX, newY
-    const tabYdim = tab.length
-    const tabXdim = tab[0].length
+    const [oldX, oldY] = initialPosition
+    // const tabYdim = tab.length
+    // const tabXdim = tab[0].length
     const foldDirection = foldInstruction.slice(11, 12)
     const foldPosition = parseInt(foldInstruction.slice(13))
     if (foldDirection === "x") {
-        if (initialPosition[0] < foldPosition) return initialPosition
-        newX = tabXdim - initialPosition[0] - 1
+        if (oldX < foldPosition) return initialPosition
+        newX = foldPosition - (oldX - foldPosition)
         newY = initialPosition[1]
     }
     if (foldDirection === "y") {
-        if (initialPosition[1] < foldPosition) return initialPosition
+        if (oldY < foldPosition) return initialPosition
         newX = initialPosition[0]
-        newY = tabYdim - initialPosition[1] - 1
+        newY = foldPosition - (oldY - foldPosition)
     }
     return [newX, newY]
 }
@@ -68,7 +128,7 @@ function replaceTab(tab, posX, posY, replacement) {
  * @returns {string} a string with replaced character
  */
 function replaceStr(str, pos, replacement) {
-    return str.slice(0, pos) + replacement + str.slice(pos, -1)
+    return str.slice(0, pos) + replacement + str.slice(pos + 1)
 }
 
 /**
@@ -86,7 +146,7 @@ function createTable(input) {
     /** @type {string[]} */
     const table = new Array(maxY + 1).fill(".".repeat(maxX + 1))
     input.forEach((coordinate) => {
-        replaceTab(table, coordinate[0], coordinate[1], "X")
+        replaceTab(table, coordinate[0], coordinate[1], "#")
     })
     return table
 }
