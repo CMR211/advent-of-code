@@ -1,33 +1,12 @@
 // @ts-check
 const { data11, data12, data21, data22 } = require("./inputs/day-13-input.js")
 
-// const data11 = `6,10
-// 0,14
-// 9,10
-// 0,3
-// 10,4
-// 4,11
-// 6,0
-// 6,12
-// 4,1
-// 0,13
-// 10,12
-// 3,4
-// 3,0
-// 8,4
-// 1,10
-// 2,14
-// 8,10
-// 9,0`
+// const sample = {
+//     coordinates: parseFirstPart(data11),
+//     folds: parseSecondPart(data12),
+//     table: createTable(parseFirstPart(data11)),
+// }
 
-// const data12 = `fold along y=7
-// fold along x=5`
-
-const sample = {
-    coordinates: parseFirstPart(data11),
-    folds: parseSecondPart(data12),
-    table: createTable(parseFirstPart(data11)),
-}
 const task = {
     coordinates: parseFirstPart(data21),
     folds: parseSecondPart(data22),
@@ -49,12 +28,12 @@ const task = {
 // console.table(multipleFolds(task))
 
 /**
- * 
- * @param {string[]} table 
+ *
+ * @param {string[]} table
  */
 function countDots(table) {
     // @ts-ignore
-    return table.join("").replaceAll(".","").length
+    return table.join("").replaceAll(".", "").length
 }
 
 /**
