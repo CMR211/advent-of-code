@@ -1,33 +1,10 @@
 // @ts-check
 
-let data = `NNCB
-
-CH -> B
-HH -> N
-CB -> H
-NH -> C
-HB -> C
-HC -> B
-HN -> C
-NN -> C
-BH -> H
-NC -> B
-NB -> B
-BN -> B
-BB -> N
-BC -> B
-CC -> N
-CN -> C`
-data = require("./inputs/day-14-input").data
+let data = require("./inputs/day-14-input").data
 
 const input = parse(data)
-
-// ----------------
-
-// const start = performance.now()
-// console.log(part1(input.template))
-// const end = performance.now()
-// console.log(end-start)
+console.log(part1) 
+// -> 3048
 
 function part1(template) {
     const elements = countElements(insertPairsManyTimes(template, 19))
